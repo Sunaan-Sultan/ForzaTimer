@@ -28,7 +28,7 @@ object ScheduleData {
         entryClosesBefore = Duration.ofMinutes(3),
         seriesEndsOn = playlistEndsOn,
         lastObserved = observedOn,
-        rotationComplete = false,
+        rotationComplete = true,
         rotation = listOf(
             RaceSlot("Sebring International Raceway", "Full Circuit", 13, 65, "Sunset"),
             RaceSlot("Maple Valley", "Full Circuit", 18, 61, "Sunrise"),
@@ -59,7 +59,10 @@ object ScheduleData {
             RaceSlot("Nürburgring", "Full Circuit", 3, 61, "Late Morning"),
             RaceSlot("Mugello Circuit", "Full Circuit", 15, 84, "Late Afternoon"),
             RaceSlot("Road America", "Full Circuit", 13, 59, "Sunrise"),
-            RaceSlot("Nürburgring", "Nordschleife", 4, 51, "Sunrise")
+            RaceSlot("Nürburgring", "Nordschleife", 4, 51, "Sunrise"),
+            RaceSlot("Sunset Peninsula Raceway", "Full Circuit Reverse", 18, 52, "Night"),
+            RaceSlot("Lime Rock Park", "Full Circuit", 32, 81, "Late Afternoon"),
+            RaceSlot("Kyalami Grand Prix Circuit", "Grand Prix Circuit", 16, 74, "Late Morning")
         )
     )
 
@@ -72,7 +75,7 @@ object ScheduleData {
         entryClosesBefore = Duration.ofMinutes(3),
         seriesEndsOn = playlistEndsOn,
         lastObserved = observedOn,
-        rotationComplete = false,
+        rotationComplete = true,
         rotation = listOf(
             RaceSlot("Homestead-Miami Speedway", "Road Circuit", 21, 82, "Afternoon"),
             RaceSlot("Watkins Glen International Speedway", "Full Circuit", 16, 81, "Late Afternoon"),
@@ -103,7 +106,8 @@ object ScheduleData {
             RaceSlot("WeatherTech Raceway Laguna Seca", "Full Circuit", 20, 52, "Sunset"),
             RaceSlot("Michelin Raceway Road Atlanta", "Grand Prix Course", 22, 50, "Sunrise"),
             RaceSlot("Hakone", "Grand Prix Circuit", 24, 68, "Late Afternoon"),
-            RaceSlot("Suzuka Circuit", "Full Circuit", 15, 68, "Late Afternoon")
+            RaceSlot("Suzuka Circuit", "Full Circuit", 15, 68, "Late Afternoon"),
+            RaceSlot("Nürburgring", "Nordschleife", 4, 51, "Sunrise")
         )
     )
 
@@ -135,8 +139,8 @@ object ScheduleData {
             RaceSlot("Daytona Intl Speedway", "Sports Car Circuit", 13, 70, "Late Afternoon"),
             RaceSlot("Yas Marina Circuit", "Full Circuit", 11, 87, "Afternoon"),
             RaceSlot("Grand Oak Raceway", "National Circuit", 17, 64, "Sunset"),
-            null,
-            null,
+            RaceSlot("Maple Valley", "Full Circuit", 15, 77, "Afternoon"),
+            RaceSlot("Circuit de Barcelona-Catalunya", "Grand Prix Circuit", 12, 65, "Late Morning"),
             RaceSlot("Circuit de Spa-Francorchamps", "Full Circuit", 9, 68, "Late Afternoon"),
             RaceSlot("Lime Rock Park", "Full Circuit", 25, 81, "Afternoon"),
             RaceSlot("Nürburgring", "Full Circuit", 2, 51, "Sunrise"),
