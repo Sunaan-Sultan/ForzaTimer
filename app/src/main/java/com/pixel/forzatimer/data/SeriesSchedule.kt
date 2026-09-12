@@ -12,6 +12,7 @@ data class SeriesSchedule(
     val rotationComplete: Boolean,
     val entryOpensBefore: Duration,
     val entryClosesBefore: Duration,
+    val raceLength: RaceLength,
     val seriesEndsOn: LocalDate? = null,
     val lastObserved: LocalDate? = null
 ) {

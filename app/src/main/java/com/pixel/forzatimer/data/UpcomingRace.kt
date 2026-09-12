@@ -7,6 +7,7 @@ enum class EntryState { NOT_OPEN, OPEN, CLOSED }
 
 data class UpcomingRace(
     val series: Series,
+    val raceLength: RaceLength,
     val rotationIndex: Int,
     val startsAt: LocalDateTime,
     val slot: RaceSlot?,

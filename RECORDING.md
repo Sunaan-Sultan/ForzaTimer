@@ -30,12 +30,12 @@ Scroll the event cards right to see further into the rotation.
 
 ## Cadence summary
 
-| Series | Cadence | Entry opens | Entry closes | Rounds recorded |
-| --- | --- | --- | --- | --- |
-| Touring Car | 20 min | 25 min before | 3 min before | 10 |
-| GT3 | 20 min | 25 min before | 3 min before | 10 |
-| Proto-H | 16 min | 20 min before | 3 min before | 11 |
-| IndyCar | 16 min | 20 min before | 3 min before | 7 |
+| Series | Race length | Cadence | Entry opens | Entry closes | Rounds recorded |
+| --- | --- | --- | --- | --- | --- |
+| Touring Car | Long | 20 min | 25 min before | 3 min before | 10 |
+| GT3 | Long | 20 min | 25 min before | 3 min before | 10 |
+| Proto-H | Medium | 16 min | 20 min before | 3 min before | 11 |
+| IndyCar | Medium | 16 min | 20 min before | 3 min before | 7 |
 
 The entry lead time tracks the cadence: 20 min races get a 25 min lead, 16 min races get
 20 min. In every case entry closes 3 min before lights out, and the entry window is longer
@@ -43,6 +43,44 @@ than the cadence, so two rounds are always joinable at once.
 
 Start offsets within the hour: Touring Car :19/:39/:59, GT3 :05/:25/:45,
 Proto-H and IndyCar drift on a 16 min cycle that doesn't divide the hour.
+
+## The daily cycle — everything here expires
+
+Each series is assigned a **race-length category** for the day, and the assignment
+**reshuffles every day at roughly 06:00 local** (Bangladesh, UTC+6):
+
+- **Long** — roughly 30 minutes of racing
+- **Medium** — roughly 20 minutes
+
+Known assignments:
+
+| Series | Cycle of 2026-09-12 | Cycle of 2026-09-13 |
+| --- | --- | --- |
+| Touring Car | Long | not known |
+| GT3 | Long | Medium |
+| Proto-H | Medium | Long |
+| IndyCar | Medium | not known |
+
+This makes 06:00 the epoch boundary for every anchor, rotation and constant in this file.
+`DailyCycle` models it and `ScheduleData.isStale(now)` compares the current cycle against
+`recordedCycleStart`; when they differ the app shows a **SCHEDULE OUT OF DATE** banner
+instead of quietly presenting yesterday's lineup as today's.
+
+### Cadence appears to follow the category, not the series
+
+On the 2026-09-12 cycle the timing constants line up exactly with the length categories:
+
+| Category | Cadence | Entry opens before |
+| --- | --- | --- |
+| Long | 20 min | 25 min |
+| Medium | 16 min | 20 min |
+
+Entry closes 3 min before lights out in both.
+
+If that holds, a new cycle only needs its per-series category read off and the timing
+constants follow. **It is an inference from a single day** — the 2026-09-13 cycle is the
+test, since GT3 goes medium and Proto-H goes long. If GT3 drops to a 16 min cadence with a
+20 min entry lead and Proto-H rises to 20 / 25, the rule is real.
 
 ## A track repeating is not the rotation looping
 
@@ -156,6 +194,11 @@ span 2h 56m.
 Open **Featured Multiplayer → FEATURED**, put the ✓ on a series, and capture the event
 cards plus the `LOCAL TIME` readout top right. Scroll right for later rounds. What's needed
 per card: track, layout, laps, weather, time of day, "Race starts at".
+
+After a 06:00 reshuffle the whole file is stale. A fresh cycle needs, per series: its
+race-length category, one anchor start time, the cadence between two consecutive rounds,
+and then as many rounds as you can scroll through. Bump `recordedCycleStart` to that
+cycle's 06:00 and the stale banner clears.
 
 Data lives in one file: `app/src/main/java/com/pixel/forzatimer/data/ScheduleData.kt`.
 Nothing else needs touching to add a series.

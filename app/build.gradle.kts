@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "com.pixel.forzatimer"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 37
         versionCode = 1
         versionName = "1.0"
@@ -22,8 +22,19 @@ android {
     buildTypes {
         release {
             optimization {
+                enable = true
+            }
+            isShrinkResources = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+        debug {
+            optimization {
                 enable = false
             }
+            isShrinkResources = false
         }
     }
     compileOptions {

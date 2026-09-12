@@ -8,12 +8,22 @@ object ScheduleData {
 
     val playlistEndsOn: LocalDate = LocalDate.of(2026, 9, 16)
 
+    val recordedCycleStart: LocalDateTime = LocalDateTime.of(2026, 9, 12, 6, 0)
+
+    val nextCycleLengths: Map<Series, RaceLength> = mapOf(
+        Series.GT3 to RaceLength.MEDIUM,
+        Series.PROTO_H to RaceLength.LONG
+    )
+
+    fun isStale(now: LocalDateTime): Boolean = DailyCycle.startOf(now) != recordedCycleStart
+
     private val observedOn = LocalDate.of(2026, 9, 12)
 
     private val touringCar = SeriesSchedule(
         series = Series.TOURING_CAR,
         cadence = Duration.ofMinutes(20),
         anchor = LocalDateTime.of(2026, 9, 12, 11, 59),
+        raceLength = RaceLength.LONG,
         entryOpensBefore = Duration.ofMinutes(25),
         entryClosesBefore = Duration.ofMinutes(3),
         seriesEndsOn = playlistEndsOn,
@@ -37,6 +47,7 @@ object ScheduleData {
         series = Series.GT3,
         cadence = Duration.ofMinutes(20),
         anchor = LocalDateTime.of(2026, 9, 12, 12, 5),
+        raceLength = RaceLength.LONG,
         entryOpensBefore = Duration.ofMinutes(25),
         entryClosesBefore = Duration.ofMinutes(3),
         seriesEndsOn = playlistEndsOn,
@@ -60,6 +71,7 @@ object ScheduleData {
         series = Series.PROTO_H,
         cadence = Duration.ofMinutes(16),
         anchor = LocalDateTime.of(2026, 9, 12, 12, 6),
+        raceLength = RaceLength.MEDIUM,
         entryOpensBefore = Duration.ofMinutes(20),
         entryClosesBefore = Duration.ofMinutes(3),
         seriesEndsOn = playlistEndsOn,
@@ -84,6 +96,7 @@ object ScheduleData {
         series = Series.INDYCAR,
         cadence = Duration.ofMinutes(16),
         anchor = LocalDateTime.of(2026, 9, 12, 13, 5),
+        raceLength = RaceLength.MEDIUM,
         entryOpensBefore = Duration.ofMinutes(20),
         entryClosesBefore = Duration.ofMinutes(3),
         seriesEndsOn = playlistEndsOn,
