@@ -247,7 +247,7 @@ private fun LazyListScope.seriesItems(series: Series, now: LocalDateTime) {
         return
     }
 
-    val races = ScheduleEngine.upcoming(schedule, now, 8)
+    val races = ScheduleEngine.upcoming(schedule, now, 5)
     val next = races.firstOrNull()
 
     if (next != null) {
@@ -302,54 +302,81 @@ private fun HeroGroup(schedule: SeriesSchedule, race: UpcomingRace, now: LocalDa
                     )
                 }
             }
-            race.slot?.let { slot ->
-                slot.laps?.let {
-                    InsetDivider()
-                    SettingsRow(title = "Laps", value = it.toString(), showChevron = false)
-                }
-                slot.weatherF?.let {
-                    InsetDivider()
-                    SettingsRow(title = "Weather", value = "$it °F", showChevron = false)
-                }
-                slot.timeOfDay?.let {
-                    InsetDivider()
-                    SettingsRow(title = "Time of day", value = it, showChevron = false)
-                }
-            }
-            InsetDivider()
-            SettingsRow(
-                title = "Entry opens",
-                value = race.entryOpensAt.asClock(),
-                showChevron = false
-            )
-            InsetDivider()
-            SettingsRow(
-                title = "Entry closes",
-                value = race.entryClosesAt.asClock(),
-                showChevron = false
-            )
+            RaceDetailRows(race)
         }
     }
 }
 
 @Composable
+private fun RaceDetailRows(race: UpcomingRace) {
+    race.slot?.let { slot ->
+        slot.laps?.let {
+            InsetDivider()
+            SettingsRow(title = "Laps", value = it.toString(), showChevron = false)
+        }
+        slot.weatherF?.let {
+            InsetDivider()
+            SettingsRow(title = "Weather", value = "$it °F", showChevron = false)
+        }
+        slot.timeOfDay?.let {
+            InsetDivider()
+            SettingsRow(title = "Time of day", value = it, showChevron = false)
+        }
+    }
+    InsetDivider()
+    SettingsRow(
+        title = "Entry opens",
+        value = race.entryOpensAt.asClock(),
+        showChevron = false
+    )
+    InsetDivider()
+    SettingsRow(
+        title = "Entry closes",
+        value = race.entryClosesAt.asClock(),
+        showChevron = false
+    )
+}
+
+@Composable
 private fun LaterGroup(races: List<UpcomingRace>, now: LocalDateTime) {
     val dimens = AppTheme.dimens
+    Column {
+        SectionHeader("Later today")
+        Column(verticalArrangement = Arrangement.spacedBy(dimens.space12)) {
+            races.forEach { race -> LaterCard(race, now) }
+        }
+    }
+}
+
+@Composable
+private fun LaterCard(race: UpcomingRace, now: LocalDateTime) {
     val colors = AppTheme.colors
-    SettingsGroup(title = "Later today") {
-        races.forEachIndexed { index, race ->
-            if (index > 0) InsetDivider()
-            SettingsRow(
-                title = race.slot?.track ?: "Not recorded yet",
-                titleColor = if (race.slot == null) colors.textSecondary else colors.textPrimary,
-                subtitle = listOfNotNull(
+    val dimens = AppTheme.dimens
+    val accent = seriesAccent(race.series)
+
+    GroupedCard {
+        Column(modifier = Modifier.padding(dimens.space16)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Pill(text = race.startsAt.asClock(), accent = accent)
+                Spacer(Modifier.width(dimens.space8))
+                EntryPill(race, now)
+            }
+            Spacer(Modifier.height(dimens.space12))
+            Text(
+                text = race.slot?.track ?: "Track not recorded yet",
+                style = MaterialTheme.typography.titleMedium,
+                color = if (race.slot == null) colors.textSecondary else colors.textPrimary
+            )
+            Text(
+                text = listOfNotNull(
                     race.slot?.layout,
-                    "in ${race.timeUntilStart(now).asCompact()}"
+                    "lights out in ${race.timeUntilStart(now).asCompact()}"
                 ).joinToString(" · "),
-                value = race.startsAt.asClock(),
-                showChevron = false
+                style = MaterialTheme.typography.bodySmall,
+                color = colors.textSecondary
             )
         }
+        RaceDetailRows(race)
     }
 }
 
