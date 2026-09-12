@@ -39,7 +39,12 @@ object ScheduleData {
             RaceSlot("Nürburgring", "GP Circuit", 13, 55, "Night"),
             RaceSlot("Mid-Ohio Sports Car Course", "Sports Car Circuit", 20, 63, "Late Morning"),
             RaceSlot("Daytona Intl Speedway", "Sports Car Circuit", 16, 53, "Night"),
-            RaceSlot("Fujimi Kaido", "Full Circuit", 3, 68, "Afternoon")
+            RaceSlot("Fujimi Kaido", "Full Circuit", 3, 68, "Afternoon"),
+            RaceSlot("Hakone", "Grand Prix Circuit", 22, 68, "Late Afternoon"),
+            RaceSlot("Yas Marina Circuit", "Full Circuit", 14, 69, "Morning"),
+            RaceSlot("Circuit de Barcelona-Catalunya", "Grand Prix Circuit", 15, 57, "Sunrise"),
+            RaceSlot("Watkins Glen International Speedway", "Full Circuit", 15, 74, "Late Morning"),
+            RaceSlot("Mount Panorama Circuit", "Bathurst Circuit", 13, 70, "Afternoon")
         )
     )
 
@@ -63,7 +68,12 @@ object ScheduleData {
             RaceSlot("Mid-Ohio Sports Car Course", "Sports Car Circuit", 21, 50, "Sunrise"),
             RaceSlot("Sunset Peninsula Raceway", "Full Circuit Reverse", 20, 52, "Night"),
             RaceSlot("Nürburgring", "GP Circuit", 14, 65, "Afternoon"),
-            RaceSlot("Yas Marina Circuit", "Full Circuit", 15, 71, "Night")
+            RaceSlot("Yas Marina Circuit", "Full Circuit", 15, 71, "Night"),
+            RaceSlot("Indianapolis Motor Speedway", "Grand Prix Circuit", 21, 70, "Sunset"),
+            RaceSlot("Maple Valley", "Full Circuit", 20, 63, "Morning"),
+            RaceSlot("Virginia International Raceway", "Full", 16, 84, "Afternoon"),
+            RaceSlot("Mount Panorama Circuit", "Bathurst Circuit", 14, 49, "Sunset"),
+            RaceSlot("Mugello Circuit", "Full Circuit", 16, 83, "Afternoon")
         )
     )
 
@@ -88,7 +98,13 @@ object ScheduleData {
             RaceSlot("Indianapolis Motor Speedway", "Grand Prix Circuit", 15, 53, "Sunrise"),
             RaceSlot("Hockenheimring", "Full Circuit", 13, 65, "Night"),
             RaceSlot("Kyalami Grand Prix Circuit", "Grand Prix Circuit", 13, 77, "Afternoon"),
-            RaceSlot("Sunset Peninsula Raceway", "Full Circuit", 15, 68, "Late Afternoon")
+            RaceSlot("Sunset Peninsula Raceway", "Full Circuit", 15, 68, "Late Afternoon"),
+            null,
+            RaceSlot("Grand Oak Raceway", "National Circuit Reverse", 17, 61, "Midnight"),
+            RaceSlot("Nürburgring", "GP Circuit", 11, 66, "Late Afternoon"),
+            RaceSlot("Daytona Intl Speedway", "Sports Car Circuit", 13, 70, "Late Afternoon"),
+            RaceSlot("Yas Marina Circuit", "Full Circuit", 11, 87, "Afternoon"),
+            RaceSlot("Grand Oak Raceway", "National Circuit", 17, 64, "Sunset")
         )
     )
 
@@ -109,7 +125,14 @@ object ScheduleData {
             RaceSlot("Michelin Raceway Road Atlanta", "Grand Prix Course", 16, 50, "Morning"),
             RaceSlot("Sebring International Raceway", "Full Circuit", 11, 57, "Morning"),
             RaceSlot("Grand Oak Raceway", "National Circuit", 17, 61, "Sunrise"),
-            RaceSlot("Watkins Glen International Speedway", "Full Circuit", 12, 74, "Late Morning")
+            RaceSlot("Watkins Glen International Speedway", "Full Circuit", 12, 74, "Late Morning"),
+            null,
+            null,
+            RaceSlot("Indianapolis Motor Speedway", "Grand Prix Circuit", 15, 65, "Late Morning"),
+            RaceSlot("Grand Oak Raceway", "National Circuit Reverse", 17, 72, "Late Afternoon"),
+            RaceSlot("Lime Rock Park", "Full Circuit", 25, 61, "Morning"),
+            RaceSlot("Daytona Intl Speedway", "Sports Car Circuit", 13, 65, "Late Morning"),
+            RaceSlot("Road America", "Full Circuit", 10, 78, "Afternoon")
         )
     )
 

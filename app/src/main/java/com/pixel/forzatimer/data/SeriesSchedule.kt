@@ -8,7 +8,7 @@ data class SeriesSchedule(
     val series: Series,
     val cadence: Duration,
     val anchor: LocalDateTime,
-    val rotation: List<RaceSlot>,
+    val rotation: List<RaceSlot?>,
     val rotationComplete: Boolean,
     val entryOpensBefore: Duration,
     val entryClosesBefore: Duration,
@@ -16,5 +16,9 @@ data class SeriesSchedule(
     val seriesEndsOn: LocalDate? = null,
     val lastObserved: LocalDate? = null
 ) {
-    val isRecorded: Boolean get() = rotation.isNotEmpty()
+    val isRecorded: Boolean get() = rotation.any { it != null }
+
+    val recordedRounds: Int get() = rotation.count { it != null }
+
+    val hasGaps: Boolean get() = rotation.any { it == null }
 }

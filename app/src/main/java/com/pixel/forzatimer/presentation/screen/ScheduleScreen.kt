@@ -355,18 +355,25 @@ private fun LaterGroup(races: List<UpcomingRace>, now: LocalDateTime) {
 
 @Composable
 private fun SeriesInfoGroup(schedule: SeriesSchedule) {
-    val rotationValue = if (schedule.rotationComplete) {
-        "${schedule.rotation.size} rounds, confirmed"
-    } else {
-        "${schedule.rotation.size} rounds so far"
+    val rotationValue = when {
+        schedule.rotationComplete -> "${schedule.recordedRounds} rounds, confirmed"
+        schedule.hasGaps -> "${schedule.recordedRounds} of ${schedule.rotation.size} rounds"
+        else -> "${schedule.recordedRounds} rounds so far"
     }
     SettingsGroup(
         title = "Series info",
-        footnote = if (schedule.rotationComplete) {
-            "The full rotation is known, so start times and tracks are predicted indefinitely."
-        } else {
-            "The rotation has not been seen looping yet. Start times past the last recorded " +
-                "round are still exact; the track is left blank rather than guessed."
+        footnote = when {
+            schedule.rotationComplete ->
+                "The full rotation is known, so start times and tracks are predicted indefinitely."
+
+            schedule.hasGaps ->
+                "The rotation has not been seen looping yet, and some rounds in the middle " +
+                    "were never captured. Every start time is still exact; unrecorded rounds " +
+                    "are left blank rather than guessed."
+
+            else ->
+                "The rotation has not been seen looping yet. Start times past the last " +
+                    "recorded round are still exact; the track is left blank rather than guessed."
         }
     ) {
         SettingsRow(

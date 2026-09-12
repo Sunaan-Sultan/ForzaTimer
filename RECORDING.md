@@ -32,10 +32,10 @@ Scroll the event cards right to see further into the rotation.
 
 | Series | Race length | Cadence | Entry opens | Entry closes | Rounds recorded |
 | --- | --- | --- | --- | --- | --- |
-| Touring Car | Long | 20 min | 25 min before | 3 min before | 10 |
-| GT3 | Long | 20 min | 25 min before | 3 min before | 10 |
-| Proto-H | Medium | 16 min | 20 min before | 3 min before | 11 |
-| IndyCar | Medium | 16 min | 20 min before | 3 min before | 7 |
+| Touring Car | Long | 20 min | 25 min before | 3 min before | 15 |
+| GT3 | Long | 20 min | 25 min before | 3 min before | 15 |
+| Proto-H | Medium | 16 min | 20 min before | 3 min before | 16 of 17 |
+| IndyCar | Medium | 16 min | 20 min before | 3 min before | 12 of 14 |
 
 The entry lead time tracks the cadence: 20 min races get a 25 min lead, 16 min races get
 20 min. In every case entry closes 3 min before lights out, and the entry window is longer
@@ -96,7 +96,7 @@ these rotations far too early and made the app print confident nonsense.
 
 ## What we have so far
 
-All observed **2026-09-12**, between 11:47 and 13:29 local. All four series showed
+All observed **2026-09-12**, between 11:47 and 15:14 local. All four series showed
 **ENDS: 4D**, so the playlist is assumed to roll over on **2026-09-16**
 (`ScheduleData.playlistEndsOn`).
 
@@ -114,6 +114,11 @@ All observed **2026-09-12**, between 11:47 and 13:29 local. All four series show
 | 7 | 02:19 PM | Mid-Ohio Sports Car Course | Sports Car Circuit | 20 | 63 °F | Late Morning |
 | 8 | 02:39 PM | Daytona Intl Speedway | Sports Car Circuit | 16 | 53 °F | Night |
 | 9 | 02:59 PM | Fujimi Kaido | Full Circuit | 3 | 68 °F | Afternoon |
+| 10 | 03:19 PM | Hakone | Grand Prix Circuit | 22 | 68 °F | Late Afternoon |
+| 11 | 03:39 PM | Yas Marina Circuit | Full Circuit | 14 | 69 °F | Morning |
+| 12 | 03:59 PM | Circuit de Barcelona-Catalunya | Grand Prix Circuit | 15 | 57 °F | Sunrise |
+| 13 | 04:19 PM | Watkins Glen International Speedway | Full Circuit | 15 | 74 °F | Late Morning |
+| 14 | 04:39 PM | Mount Panorama Circuit | Bathurst Circuit | 13 | 70 °F | Afternoon |
 
 ### Forza GT3 Series — every 20 min, anchor 12:05 PM
 
@@ -129,6 +134,11 @@ All observed **2026-09-12**, between 11:47 and 13:29 local. All four series show
 | 7 | 02:25 PM | Sunset Peninsula Raceway | Full Circuit Reverse | 20 | 52 °F | Night |
 | 8 | 02:45 PM | Nürburgring | GP Circuit | 14 | 65 °F | Afternoon |
 | 9 | 03:05 PM | Yas Marina Circuit | Full Circuit | 15 | 71 °F | Night |
+| 10 | 03:25 PM | Indianapolis Motor Speedway | Grand Prix Circuit | 21 | 70 °F | Sunset |
+| 11 | 03:45 PM | Maple Valley | Full Circuit | 20 | 63 °F | Morning |
+| 12 | 04:05 PM | Virginia International Raceway | Full | 16 | 84 °F | Afternoon |
+| 13 | 04:25 PM | Mount Panorama Circuit | Bathurst Circuit | 14 | 49 °F | Sunset |
+| 14 | 04:45 PM | Mugello Circuit | Full Circuit | 16 | 83 °F | Afternoon |
 
 ### Forza Proto-H Series — every 16 min, anchor 12:06 PM
 
@@ -145,6 +155,12 @@ All observed **2026-09-12**, between 11:47 and 13:29 local. All four series show
 | 8 | 02:14 PM | Hockenheimring | Full Circuit | 13 | 65 °F | Night |
 | 9 | 02:30 PM | Kyalami Grand Prix Circuit | Grand Prix Circuit | 13 | 77 °F | Afternoon |
 | 10 | 02:46 PM | Sunset Peninsula Raceway | Full Circuit | 15 | 68 °F | Late Afternoon |
+| 11 | 03:02 PM | *not captured* | | | | |
+| 12 | 03:18 PM | Grand Oak Raceway | National Circuit Reverse | 17 | 61 °F | Midnight |
+| 13 | 03:34 PM | Nürburgring | GP Circuit | 11 | 66 °F | Late Afternoon |
+| 14 | 03:50 PM | Daytona Intl Speedway | Sports Car Circuit | 13 | 70 °F | Late Afternoon |
+| 15 | 04:06 PM | Yas Marina Circuit | Full Circuit | 11 | 87 °F | Afternoon |
+| 16 | 04:22 PM | Grand Oak Raceway | National Circuit | 17 | 64 °F | Sunset |
 
 The Le Mans name is truncated in game as "LE MANS - CIRCUIT INTERNATIONAL DE LA SART…";
 stored in full.
@@ -160,6 +176,13 @@ stored in full.
 | 4 | 02:09 PM | Sebring International Raceway | Full Circuit | 11 | 57 °F | Morning |
 | 5 | 02:25 PM | Grand Oak Raceway | National Circuit | 17 | 61 °F | Sunrise |
 | 6 | 02:41 PM | Watkins Glen International Speedway | Full Circuit | 12 | 74 °F | Late Morning |
+| 7 | 02:57 PM | *not captured* | | | | |
+| 8 | 03:13 PM | *not captured* | | | | |
+| 9 | 03:29 PM | Indianapolis Motor Speedway | Grand Prix Circuit | 15 | 65 °F | Late Morning |
+| 10 | 03:45 PM | Grand Oak Raceway | National Circuit Reverse | 17 | 72 °F | Late Afternoon |
+| 11 | 04:01 PM | Lime Rock Park | Full Circuit | 25 | 61 °F | Morning |
+| 12 | 04:17 PM | Daytona Intl Speedway | Sports Car Circuit | 13 | 65 °F | Late Morning |
+| 13 | 04:33 PM | Road America | Full Circuit | 10 | 78 °F | Afternoon |
 
 ## Confidence in the derived constants
 
@@ -180,14 +203,18 @@ the app shows it as `ENTRY CLOSED` and still counts down to lights out.
 
 ## Still open
 
-No rotation has looped yet, so all four are `rotationComplete = false`. Known lower bounds
-on rotation length: Touring Car ≥ 10, GT3 ≥ 10, Proto-H ≥ 11, IndyCar ≥ 7.
+No rotation has looped yet. Known lower bounds: Touring Car ≥ 15, GT3 ≥ 15,
+Proto-H ≥ 17, IndyCar ≥ 14 rounds. At 20 min a round, Touring Car and GT3 already span
+5 hours without repeating, so a full rotation may well be a whole day long — in which case
+it never loops before the 06:00 reshuffle and `rotationComplete` stays false by nature.
 
-To close one out, capture far enough ahead to catch round 0 recurring as an exact slot
-match. For Touring Car that is Sebring / Full Circuit / 13 laps / 65 °F / Sunset; at 20 min
-a round, 10 rounds already covers 3h 20m, so the loop point is late afternoon at the
-earliest. Proto-H is the cheapest to finish — 16 min rounds, so its 11 known rounds only
-span 2h 56m.
+**Gaps.** Proto-H round 11 (03:02 PM) and IndyCar rounds 7-8 (02:57, 03:13 PM) were never
+captured; the 13:00 and 15:13 capture sets did not overlap for those two series.
+
+`rotation` is therefore a `List<RaceSlot?>`, and a missing round is stored as `null` at its
+true index. This matters: closing the gap instead would shift every later round one slot
+earlier and put a wrong track against every remaining start time for the rest of the day.
+The app shows an unrecorded round with its exact start time and a blank track.
 
 ## How to record more
 
