@@ -106,9 +106,7 @@ fun ScheduleScreen(onOpenSettings: () -> Unit) {
             verticalArrangement = Arrangement.spacedBy(dimens.space24)
         ) {
             item { ClockCards(now) }
-            if (ScheduleData.isStale(now)) {
-                item { StaleGroup() }
-            }
+            item { CycleGroup(now) }
             item { SeriesFilter(selected) { selected = it } }
 
             val current = selected
@@ -142,33 +140,35 @@ private fun ClockCards(now: LocalDateTime) {
 }
 
 @Composable
-private fun StaleGroup() {
+private fun CycleGroup(now: LocalDateTime) {
     val colors = AppTheme.colors
     val dimens = AppTheme.dimens
-    val expected = ScheduleData.nextCycleLengths
+    val expected = ScheduleData.expectedLengths(now)
+    val missing = ScheduleData.unrecordedFor(now)
     SettingsGroup(
-        title = "Schedule",
-        footnote = "Recorded for the cycle starting ${ScheduleData.recordedCycleStart.asDay()}, 6:00 AM."
+        title = "This cycle",
+        footnote = "Lengths flip every 6:00 AM reshuffle, anchored on " +
+            "${ScheduleData.firstObservedOn}. Each series keeps one rotation per length."
     ) {
         SettingsRow(
-            title = "Schedule out of date",
-            subtitle = "The lineup reshuffles at 6:00 AM, so today's tracks and race lengths " +
-                "differ. Re-record from the game.",
-            leadingIcon = AppIcons.Warning,
-            leadingIconTint = colors.warning,
-            leadingIconContainer = colors.warningSubtle,
+            title = "Race lengths",
+            subtitle = expected.entries.joinToString(", ") {
+                "${it.key.shortName} ${it.value.label.lowercase()} · ${it.value.cadenceMinutes} min"
+            },
+            leadingIcon = AppIcons.Calendar,
+            leadingIconTint = colors.primary,
+            leadingIconContainer = colors.primarySubtle,
             showChevron = false
         )
-        if (expected.isNotEmpty()) {
+        if (missing.isNotEmpty()) {
             InsetDivider(dimens.dividerInsetWithIcon)
             SettingsRow(
-                title = "Expected next cycle",
-                subtitle = expected.entries.joinToString(", ") {
-                    "${it.key.shortName} ${it.value.label.lowercase()}"
-                },
-                leadingIcon = AppIcons.Calendar,
-                leadingIconTint = colors.primary,
-                leadingIconContainer = colors.primarySubtle,
+                title = "Not recorded at this length",
+                subtitle = missing.joinToString(", ") { it.shortName } +
+                    " — record a round from the game to fill these in.",
+                leadingIcon = AppIcons.Warning,
+                leadingIconTint = colors.warning,
+                leadingIconContainer = colors.warningSubtle,
                 showChevron = false
             )
         }
@@ -214,8 +214,8 @@ private fun LazyListScope.overviewItems(now: LocalDateTime, onSelect: (Series) -
 private fun OverviewRow(series: Series, now: LocalDateTime, onClick: () -> Unit) {
     val colors = AppTheme.colors
     val accent = seriesAccent(series)
-    val schedule = ScheduleData.scheduleFor(series)
-    val race = schedule?.let { ScheduleEngine.nextRace(it, now) }
+    val schedule = ScheduleData.scheduleFor(series, now)
+    val race = ScheduleEngine.nextRace(schedule, now)
 
     SettingsRow(
         title = series.shortName,
@@ -234,14 +234,15 @@ private fun OverviewRow(series: Series, now: LocalDateTime, onClick: () -> Unit)
 }
 
 private fun LazyListScope.seriesItems(series: Series, now: LocalDateTime) {
-    val schedule = ScheduleData.scheduleFor(series)
-    if (schedule == null) {
+    val schedule = ScheduleData.scheduleFor(series, now)
+    if (!schedule.isRecorded) {
         item {
             EmptyState(
                 icon = AppIcons.Timer,
-                title = "No timings for ${series.shortName}",
-                message = "Open Featured Multiplayer in game, put the check mark on " +
-                    "${series.fullName}, and log the event cards."
+                title = "${series.shortName} not recorded at this length",
+                message = "Today this series runs ${schedule.raceLength.label.lowercase()} races. Open Featured " +
+                    "Multiplayer in game, put the check mark on ${series.fullName}, and log " +
+                    "the event cards."
             )
         }
         return

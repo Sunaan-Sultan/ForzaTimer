@@ -6,19 +6,23 @@ import java.time.LocalDateTime
 
 data class SeriesSchedule(
     val series: Series,
-    val cadence: Duration,
-    val anchor: LocalDateTime,
-    val rotation: List<RaceSlot?>,
-    val rotationComplete: Boolean,
-    val entryOpensBefore: Duration,
-    val entryClosesBefore: Duration,
     val raceLength: RaceLength,
-    val seriesEndsOn: LocalDate? = null,
+    val anchor: LocalDateTime?,
+    val rotation: SeriesRotation,
+    val rotationOffset: Int = 0,
     val lastObserved: LocalDate? = null
 ) {
-    val isRecorded: Boolean get() = rotation.any { it != null }
+    val cadence: Duration get() = raceLength.cadence
 
-    val recordedRounds: Int get() = rotation.count { it != null }
+    val entryOpensBefore: Duration get() = raceLength.entryOpensBefore
 
-    val hasGaps: Boolean get() = rotation.any { it == null }
+    val entryClosesBefore: Duration get() = raceLength.entryClosesBefore
+
+    val rotationComplete: Boolean get() = rotation.complete
+
+    val recordedRounds: Int get() = rotation.recordedRounds
+
+    val hasGaps: Boolean get() = rotation.hasGaps
+
+    val isRecorded: Boolean get() = anchor != null && rotation.recordedRounds > 0
 }

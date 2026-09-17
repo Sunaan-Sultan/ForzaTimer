@@ -10,15 +10,16 @@ object ScheduleEngine {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun upcoming(schedule: SeriesSchedule, now: LocalDateTime, count: Int): List<UpcomingRace> {
-        if (!schedule.isRecorded || schedule.cadence.isZero) return emptyList()
+        val anchor = schedule.anchor
+        if (anchor == null || !schedule.isRecorded || schedule.cadence.isZero) return emptyList()
 
         val cadenceSeconds = schedule.cadence.seconds.toDouble()
-        val elapsedSeconds = Duration.between(schedule.anchor, now).seconds.toDouble()
+        val elapsedSeconds = Duration.between(anchor, now).seconds.toDouble()
         val firstIndex = floor(elapsedSeconds / cadenceSeconds).toInt() + 1
 
         return (0 until count).map { offset ->
             val index = firstIndex + offset
-            val startsAt = schedule.anchor.plus(schedule.cadence.multipliedBy(index.toLong()))
+            val startsAt = anchor.plus(schedule.cadence.multipliedBy(index.toLong()))
             UpcomingRace(
                 series = schedule.series,
                 raceLength = schedule.raceLength,
@@ -38,10 +39,10 @@ object ScheduleEngine {
     private fun slotAt(schedule: SeriesSchedule, index: Int): RaceSlot? {
         val size = schedule.rotation.size
         if (size == 0) return null
+        val position = schedule.rotationOffset + index
         if (schedule.rotationComplete) {
-            val wrapped = ((index % size) + size) % size
-            return schedule.rotation[wrapped]
+            return schedule.rotation.slots[Math.floorMod(position, size)]
         }
-        return schedule.rotation.getOrNull(index)
+        return schedule.rotation.slots.getOrNull(position)
     }
 }
