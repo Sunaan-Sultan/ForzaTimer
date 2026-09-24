@@ -11,7 +11,7 @@ import com.pixel.forzatimer.ui.theme.rememberAccentOnSurface
 
 private fun tileFor(series: Series): Color = when (series) {
     Series.TOURING_CAR -> TileBlue
-    Series.GT2 -> TileAmber
+    Series.GT3 -> TileAmber
     Series.PROTO_H -> TileTeal
     Series.INDYCAR -> TileCoral
 }

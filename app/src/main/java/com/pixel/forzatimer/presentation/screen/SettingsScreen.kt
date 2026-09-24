@@ -137,9 +137,9 @@ fun SettingsScreen(
                         "See RECORDING.md in the project for the full tables."
                 ) {
                     SettingsRow(
-                        title = "Shuffle anchor",
-                        subtitle = "Lengths flip each 6:00 AM cycle from here",
-                        value = ScheduleData.firstObservedOn.toString(),
+                        title = "Recorded cycle",
+                        subtitle = "Cycles start at 6:00 AM local",
+                        value = ScheduleData.recordedCycleStart.asDay(),
                         leadingIcon = AppIcons.Calendar,
                         leadingIconTint = colors.primary,
                         leadingIconContainer = colors.primarySubtle,
@@ -147,8 +147,8 @@ fun SettingsScreen(
                     )
                     InsetDivider(dimens.dividerInsetWithIcon)
                     SettingsRow(
-                        title = "Rotations recorded",
-                        value = ScheduleData.recordedProfiles,
+                        title = "Playlist ends",
+                        value = ScheduleData.playlistEndsOn.toString(),
                         leadingIcon = AppIcons.Timer,
                         leadingIconTint = colors.primary,
                         leadingIconContainer = colors.primarySubtle,
